@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project (Box2D-cmake)
 
+if(CMAKE_TOOLCHAIN_FILE MATCHES ".*DevkitA64Libnx.cmake")
+    set(CMAKE_USER_MAKE_RULES_OVERRIDE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerOptionsOverride.cmake")
+endif()
+
 set(SOURCES
   ${PROJECT_SOURCE_DIR}/Box2D/Box2D/Collision/b2BroadPhase.cpp
   ${PROJECT_SOURCE_DIR}/Box2D/Box2D/Collision/b2CollideCircle.cpp
@@ -51,7 +55,7 @@ set(SOURCES
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
-add_library(tobanteGaming::Box2D ALIAS ${PROJECT_NAME})
+add_library(WIZ::Box2D ALIAS ${PROJECT_NAME})
 
 target_include_directories( ${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/Box2D)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
